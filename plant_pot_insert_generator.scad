@@ -1,22 +1,20 @@
 $fa = 1;
 $fs = 1;
 
+top_diameter = 134;
 bottom_diameter = 82;
-bottom_height = 1;
-
-top_diameter = 105;
-
-pot_height = 105;
+pot_height = 106;
 
 wall_thickness = 1;
+bottom_height = 1;
 
 hole_diameter = 8;
 hole_ring_radii = [15, 30];
 holes_per_rings = [4, 8];
 
-standoff_bottom_width = 4;
+standoff_bottom_width = 6;
 standoff_height = 6;
-standoff_top_width = 10;
+standoff_top_width = 11.5;
 standoff_top_distance = 2;
 
 num_cutouts = 8;
