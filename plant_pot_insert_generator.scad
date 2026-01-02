@@ -1,25 +1,52 @@
 $fa = 1;
 $fs = 1;
 
+// PLANT POT INSERT PARAMETERS
 top_diameter = 65;
 bottom_diameter = 48;
 pot_height = 61;
 
 wall_thickness = 1;
-bottom_height = 1;
+bottom_thickness = 1;
 
+/* parameters for the bottom holes:
+ * there is always a center hole which is surrounded by a ring / multiple rings of holes
+ * the number of hole rings around the center hole is set by the number of elements in
+ * the list `hole_ring_radii`
+ */
 hole_diameter = 8;
-hole_ring_radii = [18, 30, ];
-holes_per_rings = [8, 16, 16];
+hole_ring_radii = [18, 30];
+holes_per_rings = [8, 16];
 
+/* parameters for the bottom stand offs:
+ * at the bottom are stand offs are rings of trapezoids defined by the following 
+ * parameters
+ *
+ *   top_width  top_distance
+ *   ------------      ------------
+ *   \          /      \          /  height
+ *    \        /        \        /
+ *     --------          --------
+ *   bottom_width
+ */
 standoff_bottom_width = 6;
 standoff_height = 6;
 standoff_top_width = 10;
 standoff_top_distance = 2;
 
+/*
+ * at the bottom the standoffs are separated by cutouts which are going through the 
+ * center. The number of cutouts is set by the following parameter
+ */
+
 num_cutouts = 8;
 
+/* width of the lip at the top of the plant pot insert */
 lip_width = 2;
+
+// DO NOT CHANGE PARAMETERS AFTER THIS LINE
+
+
 
 
 bottom_radius = bottom_diameter / 2;
@@ -41,7 +68,7 @@ lip_height = (lip_width - wall_thickness) / tan(wall_angle);
 
 module bottom_hole() {
     translate([0,0,-1]) {
-        cylinder(h=standoff_height+bottom_height+2, r1=hole_radius, r2=hole_radius);
+        cylinder(h=standoff_height+bottom_thickness+2, r1=hole_radius, r2=hole_radius);
     }
 }
 
@@ -65,13 +92,13 @@ difference() {
                     polygon(points=[
                         [0, 0],
                         [bottom_radius, 0],
-                        //[bottom_radius, bottom_height],
+                        //[bottom_radius, bottom_thickness],
                         [top_radius, pot_height_wo_standoffs],
                         [top_radius - wall_thickness, pot_height_wo_standoffs],
                         [top_radius - lip_width, pot_height_wo_standoffs],
                         [top_radius - lip_width, pot_height_wo_standoffs - lip_height],
-                        [bottom_radius - wall_thickness, bottom_height],
-                        [0, bottom_height]
+                        [bottom_radius - wall_thickness, bottom_thickness],
+                        [0, bottom_thickness]
                     ]);
                 }
             }
